@@ -28,7 +28,7 @@ fn main() -> anyhow::Result<()> {
 
             info_string.write_fmt(format_args!("        Input:\n"))?;
             let Ok(input_configs) = device.supported_input_configs() else {
-                info_string.write_fmt(format_args!("            Disconnected"));
+                info_string.write_fmt(format_args!("            Disconnected"))?;
                 continue;
             };
             let input_configs: Vec<SupportedStreamConfigRange> = input_configs.collect();
