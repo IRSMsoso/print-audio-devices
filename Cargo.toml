@@ -2,7 +2,11 @@
 name = "print-audio-devices"
 version = "0.1.0"
 edition = "2021"
+license = "Apache-2.0"
+description = "Prints the hosts, devices, and supported device configurations of your system as seen by cpal."
+repository = "https://github.com/IRSMsoso/print-audio-devices"
+readme = "README.md"
 
 [dependencies]
-cpal = { version = "0.15.3" , features = ["jack", "asio"]}
+cpal = { version = "0.15.3", features = ["jack", "asio"] }
 anyhow = "1.0.86"
