@@ -26,6 +26,7 @@ fn main() -> anyhow::Result<()> {
         for device in devices {
             info_string.write_fmt(format_args!("    {}\n", device.name()?))?;
 
+            // INPUT
             info_string.write_fmt(format_args!("        Input:\n"))?;
             let Ok(input_configs) = device.supported_input_configs() else {
                 info_string.write_fmt(format_args!("            Disconnected"))?;
@@ -46,6 +47,30 @@ fn main() -> anyhow::Result<()> {
                         SupportedBufferSize::Unknown => "Unknown".to_owned(),
                     },
                     input_config.sample_format()
+                ))?;
+            }
+
+            // OUTPUT
+            info_string.write_fmt(format_args!("        Output:\n"))?;
+            let Ok(output_configs) = device.supported_output_configs() else {
+                info_string.write_fmt(format_args!("            Disconnected"))?;
+                continue;
+            };
+            let output_configs: Vec<SupportedStreamConfigRange> = output_configs.collect();
+
+            for output_config in output_configs {
+                info_string.write_fmt(format_args!(
+                    "            [{} channel(s)] [{}Hz -> {}Hz] [{} samples] [format: {}]\n",
+                    output_config.channels(),
+                    output_config.min_sample_rate().0,
+                    output_config.max_sample_rate().0,
+                    match output_config.buffer_size() {
+                        SupportedBufferSize::Range { min, max } => {
+                            format!("{} -> {}", min, max)
+                        }
+                        SupportedBufferSize::Unknown => "Unknown".to_owned(),
+                    },
+                    output_config.sample_format()
                 ))?;
             }
         }
