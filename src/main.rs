@@ -24,7 +24,7 @@ fn main() -> anyhow::Result<()> {
         ))?;
 
         for device in devices {
-            info_string.write_fmt(format_args!("    {}\n", device.name()?))?;
+            info_string.write_fmt(format_args!("    {}\n", device.description()?))?;
 
             // INPUT
             info_string.write_fmt(format_args!("        Input:\n"))?;
@@ -38,8 +38,8 @@ fn main() -> anyhow::Result<()> {
                 info_string.write_fmt(format_args!(
                     "            [{} channel(s)] [{}Hz -> {}Hz] [{} samples] [format: {}]\n",
                     input_config.channels(),
-                    input_config.min_sample_rate().0,
-                    input_config.max_sample_rate().0,
+                    input_config.min_sample_rate(),
+                    input_config.max_sample_rate(),
                     match input_config.buffer_size() {
                         SupportedBufferSize::Range { min, max } => {
                             format!("{} -> {}", min, max)
@@ -62,8 +62,8 @@ fn main() -> anyhow::Result<()> {
                 info_string.write_fmt(format_args!(
                     "            [{} channel(s)] [{}Hz -> {}Hz] [{} samples] [format: {}]\n",
                     output_config.channels(),
-                    output_config.min_sample_rate().0,
-                    output_config.max_sample_rate().0,
+                    output_config.min_sample_rate(),
+                    output_config.max_sample_rate(),
                     match output_config.buffer_size() {
                         SupportedBufferSize::Range { min, max } => {
                             format!("{} -> {}", min, max)

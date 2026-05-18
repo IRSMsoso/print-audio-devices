@@ -8,5 +8,5 @@ repository = "https://github.com/IRSMsoso/print-audio-devices"
 readme = "README.md"
 
 [dependencies]
-cpal = { version = "0.15.3", features = ["jack", "asio"] }
-anyhow = "1.0.86"
+cpal = { version = "0.17.3", features = ["jack", "asio"] }
+anyhow = "1.0.102"
